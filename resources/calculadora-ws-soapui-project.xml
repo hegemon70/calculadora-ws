@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project id="4649fc50-a3d4-4245-afc1-f381f8bd6f53" activeEnvironment="Default" name="calculadora-ws" resourceRoot="" soapui-version="5.2.1" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" id="bd333874-8699-442c-8da3-0952acda9f5a" wsaVersion="NONE" name="calculadoraSoapBinding" type="wsdl" bindingName="{http://calculadora.module4.aaa.formacion.nett/ws}calculadoraSoapBinding" soapVersion="1_1" anonymous="optional" definition="http://localhost:8080/calculadora?wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://localhost:8080/calculadora?wsdl"><con:part><con:url>http://localhost:8080/calculadora?wsdl</con:url><con:content><![CDATA[<definitions name="calculadoraService" targetNamespace="http://calculadora.module4.aaa.formacion.nett/ws" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:types="http://calculadora.module4.aaa.formacion.nett/types" xmlns:tns="http://calculadora.module4.aaa.formacion.nett/ws" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <types>
+    <xsd:schema>
+      <xsd:import namespace="http://calculadora.module4.aaa.formacion.nett/types" schemaLocation="http://localhost:8080/calculadora?xsd=calculadora.xsd"/>
+    </xsd:schema>
+  </types>
+  <message name="calculadoraResponse">
+    <part element="types:resultado" name="parameters"></part>
+  </message>
+  <message name="calculadoraRequest">
+    <part element="types:termino" name="parameters"></part>
+  </message>
+  <portType name="calculadora">
+    <operation name="calcular">
+      <input message="tns:calculadoraRequest"></input>
+      <output message="tns:calculadoraResponse"></output>
+    </operation>
+  </portType>
+  <binding name="calculadoraSoapBinding" type="tns:calculadora">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="calcular">
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+  </binding>
+  <service name="calculadoraService">
+    <port binding="tns:calculadoraSoapBinding" name="calculadoraPort">
+      <soap:address location="http://localhost:8080/calculadora"/>
+    </port>
+  </service>
+</definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part><con:part><con:url>http://localhost:8080/calculadora?xsd=calculadora.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="http://calculadora.module4.aaa.formacion.nett/types" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://calculadora.module4.aaa.formacion.nett/types">
+  <xs:simpleType name="operador">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="SUMA"/>
+      <xs:enumeration value="RESTA"/>
+      <xs:enumeration value="MULTIPLICACION"/>
+      <xs:enumeration value="DIVISION"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="terminoParte">
+    <xs:sequence>
+      <xs:element maxOccurs="1" minOccurs="0" name="operador" type="tns:operador"/>
+      <xs:element maxOccurs="1" minOccurs="1" name="valor" type="xs:double"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="termino">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="1" name="parte" type="tns:terminoParte"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="resultado">
+    <xs:sequence>
+      <xs:element maxOccurs="1" minOccurs="1" name="valor" type="xs:double"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="termino" type="tns:termino"/>
+  <xs:element name="resultado" type="tns:resultado"/>
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:8080/calculadora</con:endpoint></con:endpoints><con:operation id="db6850ff-e7da-4df8-8449-dbab5f7044fc" isOneWay="false" action="" name="calcular" bindingOperationName="calcular" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="c833cb05-1fac-49c0-936a-8040b905be52" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/calculadora</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:typ="http://calculadora.module4.aaa.formacion.nett/types">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <typ:termino>\r
+         <parte>
+            <valor>20</valor>
+         </parte>
+         <parte>\r
+            <operador>RESTA</operador>\r
+            <valor>80</valor>\r
+         </parte>\r
+      </typ:termino>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://calculadora.module4.aaa.formacion.nett/ws/calculadora/calcularRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/></con:soapui-project>
