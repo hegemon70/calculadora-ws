@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+           xmlns:tns="http://calculadora.module4.aaa.formacion.nett/types"
+           targetNamespace="http://calculadora.module4.aaa.formacion.nett/types" 
+           version="1.0">
+
+  <xs:simpleType name="operador">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="SUMA"></xs:enumeration>
+      <xs:enumeration value="RESTA"></xs:enumeration>
+      <xs:enumeration value="MULTIPLICACION"></xs:enumeration>
+      <xs:enumeration value="DIVISION"></xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="terminoParte">
+    <xs:sequence>
+      <xs:element name="operador" type="tns:operador" minOccurs="0" maxOccurs="1" />
+      <xs:element name="valor" type="xs:double" minOccurs="1" maxOccurs="1" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="termino">
+    <xs:sequence>
+      <xs:element name="parte" type="tns:terminoParte" minOccurs="1" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+  
+  <xs:complexType name="resultado">
+    <xs:sequence>
+      <xs:element name="valor" type="xs:double" minOccurs="1" maxOccurs="1" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:element name="termino" type="tns:termino" />
+  <xs:element name="resultado" type="tns:resultado" />
+
+</xs:schema>

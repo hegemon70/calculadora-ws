@@ -1,0 +1,49 @@
+<definitions     name="calculadoraService"
+                 xmlns="http://schemas.xmlsoap.org/wsdl/" 
+                 xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+                 xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+                 xmlns:types="http://calculadora.module4.aaa.formacion.nett/types" 
+                 xmlns:tns="http://calculadora.module4.aaa.formacion.nett/ws"
+                 targetNamespace="http://calculadora.module4.aaa.formacion.nett/ws">
+
+  <types>
+    <xsd:schema>
+      <xsd:import namespace="http://calculadora.module4.aaa.formacion.nett/types"
+                  schemaLocation="calculadora.xsd" />
+    </xsd:schema>
+  </types>
+
+  <message name="calculadoraRequest">
+    <part name="parameters" element="types:termino" />
+  </message>
+  <message name="calculadoraResponse">
+    <part name="parameters" element="types:resultado" />
+  </message>
+
+  <portType name="calculadora">
+    <operation name="calcular">
+      <input message="tns:calculadoraRequest" />
+      <output message="tns:calculadoraResponse" />
+    </operation>
+  </portType>
+
+  <binding name="calculadoraSoapBinding" type="tns:calculadora">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
+    <operation name="calcular">
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+  </binding>
+
+  <service name="calculadoraService">
+    <port binding="tns:calculadoraSoapBinding" name="calculadoraPort">
+      <soap:address
+        location="http://localhost:8080/calculadora/calculadoraPort" />
+    </port>
+  </service>
+
+</definitions>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans" 
+       xmlns:jaxws="http://cxf.apache.org/jaxws"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://cxf.apache.org/jaxws 
+        http://cxf.apache.org/schemas/jaxws.xsd">
+
+  <import resource="classpath:META-INF/cxf/cxf.xml" />
+
+  <bean id="calculadora" class="nett.formacion.aaa.module4.calculadora.ws.CalculadoraImpl" />
+
+  <jaxws:endpoint xmlns:tns="http://calculadora.module4.aaa.formacion.nett/ws"
+                    id="calculadoraEndpoint" implementor="#calculadora"
+                    wsdlLocation="classpath:wsdl/calculadora.wsdl" endpointName="tns:calculadoraPort"
+                    serviceName="tns:calculadoraService"
+                    address="http://0.0.0.0:8080/calculadora">
+    <jaxws:dataBinding>
+      <bean class="org.apache.cxf.jibx.JibxDataBinding" />
+    </jaxws:dataBinding>
+  </jaxws:endpoint>
+
+</beans>
